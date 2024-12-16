@@ -21,9 +21,7 @@ int main() {
     const char *filename = "users.txt"; // File name
     int choice;
 
-
 // show options
-
     do {
         printf("1. Create User\n");
         printf("2. Read Users\n");
@@ -53,10 +51,8 @@ int main() {
                 printf("Invalid choice. Please choose between 1 and 5.\n");
         }
     } while (choice != 5);
-
     return 0;
 }
-
 
 // function definition create new user
 void createUser(const char *filename) {
@@ -64,9 +60,9 @@ void createUser(const char *filename) {
 
     printf("Enter user Id: ");
     scanf("%d", &user.id);
-    getchar(); // Consume newline
+    getchar();
 
-    // Check if teh user exists or not
+    // Check if user exists or not
     if (userexists(filename, user.id)) {
         printf("Error: User already exists\n");
         return;
@@ -91,8 +87,6 @@ void createUser(const char *filename) {
     fclose(file);
     printf("User created\n");
 }
-
-
 
 // Read the file
 void readUsers(const char *filename) {
@@ -143,7 +137,6 @@ void updateUser(const char *filename) {
             printf("Enter New Age: ");
             scanf("%d", &user.age);
         }
-
         fprintf(tempfile, "%d,%s,%d\n", user.id, user.name, user.age);
     }
     fclose(file);
@@ -155,11 +148,9 @@ void updateUser(const char *filename) {
     if(found){
         printf("updated");
     }
-
 }
 
-// delete
-
+// delete user
 void deleteUser(const char *filename) {
     int id;
     printf("Enter ID: ");
@@ -180,7 +171,6 @@ void deleteUser(const char *filename) {
         if (user.id == id) {
             found = 1;
             continue; 
-            
             // Skip the record to delete
         }
         fprintf(tempfile, "%d,%s,%d\n", user.id, user.name, user.age);
@@ -193,10 +183,10 @@ void deleteUser(const char *filename) {
     rename("temp.txt", filename);
 
     if (found)
+    {
         printf("User deleted\n");
-    
+    }
 }
-
 
 // to check if the user exist or not by checking id 
 int userexists(const char *filename, int id) {
@@ -205,11 +195,11 @@ int userexists(const char *filename, int id) {
         return 0; // File does not exist
     }
 
-
     struct User user;
 
     // Read file line by line and check for matching ID
-    while (fscanf(file, "%d,%49[^,],%d\n", &user.id, user.name, &user.age) == 3) {
+    while (fscanf(file, "%d,%49[^,],%d\n", &user.id, user.name, &user.age) == 3) 
+    {
         if (user.id == id) {
             fclose(file);
             return 1;
